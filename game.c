@@ -1,5 +1,6 @@
 #include "tembakan.h"
 #include "tabrakan.h"
+#include "gambarwindow.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -22,7 +23,9 @@ int pesawatterakhir = 0;
 int peluruterakhir = 0;
 int objekterakhir = 0;
 titik pl0 = {0,0};
-titik pl1 = {1000,700};
+titik pl1 = {999,699};
+titik pw0 = {0,0};
+titik pw1 = {299,199};
 pthread_t thread0; 		//thread input capture
 int fd; 				//something-something keylogger
 struct input_event ev;	//something-something keylogger
@@ -38,6 +41,8 @@ titik p9 = {0,0};
 titik p10 = {760,2};
 titik p11 = {0,600};
 titik p12 = {900,700};
+
+titik windowPosition = {350,50};
 
 int main(){
 //**setup-pendengar-keyboard********************************************************************
@@ -81,6 +86,9 @@ int main(){
 	gambarObjek();
 	gambarTembakan();
 	loadBuffer();
+
+	refreshBuffer_window(pw0,pw1);
+	loadBuffer_window();
 
 //**game-loop***********************************************************************************
 	pthread_create(&thread0, NULL, preUpdate, NULL);
@@ -170,6 +178,7 @@ void updatePosisi(){
 	gambarObjek();
 	gambarTembakan();
 	jalanObjek();
+	drawWindow(windowPosition);
 }
 
 void postUpdate(){
