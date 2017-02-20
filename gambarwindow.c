@@ -2,27 +2,23 @@
 #include "framebuffer_init.h"
 
 // deklarasi fungsi
-#include "gambar.h"
+#include "gambarwindow.h"
 #include <stdio.h>
 #include <math.h>
 
-warna cRed ={255,25,25,255};
-warna cGreen = {25,255,25,255};
-warna cBlue = {25,25,255,255};
-warna cWhite = {255,255,255,255};
 
-titik setTitik(int x, int y){
+titik setTitik_window(int x, int y){
     titik temp = {x, y};
     return temp;
 }
 
 //mengganti nilai pixel dengan posisi p pada buffer dengan warna c
-void DrawDot(titik p, warna c){
-    if((p.x < 1) || (p.x >= GLOBAL_LAYAR_X) || (p.y < 1) || (p.y >= GLOBAL_LAYAR_Y)){
+void DrawDot_window(titik p, warna c){
+    if((p.x < 1) || (p.x >= GLOBAL_WINDOW_X) || (p.y < 1) || (p.y >= GLOBAL_WINDOW_Y)){
 		return ;
 	}
 
-    long int position = (p.x + global_vinfo.xoffset) * (global_vinfo.bits_per_pixel / 8) +
+    long int position = (p.x + 1000 + global_vinfo.xoffset) * (global_vinfo.bits_per_pixel / 8) +
        (p.y + global_vinfo.yoffset) * global_finfo.line_length;
 
     if(global_vinfo.bits_per_pixel == 32){
@@ -40,31 +36,21 @@ void DrawDot(titik p, warna c){
     }
 }
 
-void bufferDrawDot(titik p, warna c){
+void bufferDrawDot_window(titik p, warna c){
     if((p.x < 1) || (p.x >= GLOBAL_LAYAR_X) || (p.y < 1) || (p.y >= GLOBAL_LAYAR_Y)){
 		return ;
 	}
 
-    buffer_b[p.x][p.y] = c.b;
-    buffer_g[p.x][p.y] = c.g;
-    buffer_r[p.x][p.y] = c.r;
-    buffer_a[p.x][p.y] = c.a;
+    wbuffer_b[p.x][p.y] = c.b;
+    wbuffer_g[p.x][p.y] = c.g;
+    wbuffer_r[p.x][p.y] = c.r;
+    wbuffer_a[p.x][p.y] = c.a;
 }
 
-titik getMidPoint(titik *citra, int sisi) {
-  titik ans;
-  int i = 0, midx = 0, midy = 0;
-  for (i = 0; i < sisi; i++) {
-    midx += citra[i].x;
-    midy += citra[i].y;
-  }
-  midx /= sisi; midy /= sisi;
-  ans.x = midx; ans.y = midy;
-  return ans;
-}
+
 
 //mengganti nilai seluruh pixel buffer menjadi background color untuk
-void refreshBuffer(titik p0, titik p1){
+void refreshBuffer_window(titik p0, titik p1){
     warna warna_default = {25, 25, 255, 255};
 
     //
@@ -75,10 +61,10 @@ void refreshBuffer(titik p0, titik p1){
     if(p0.x < p1.x && p0.y < p1.y){
         for(i = p0.x; i < p1.x; i++)
             for(j = p0.y; j < p1.y; j++){
-                buffer_r[i][j] = warna_default.r;
-                buffer_g[i][j] = warna_default.g;
-                buffer_b[i][j] = warna_default.b;
-                buffer_a[i][j] = warna_default.a;
+                wbuffer_r[i][j] = warna_default.r;
+                wbuffer_g[i][j] = warna_default.g;
+                wbuffer_b[i][j] = warna_default.b;
+                wbuffer_a[i][j] = warna_default.a;
             }
 
         return;
@@ -92,10 +78,10 @@ void refreshBuffer(titik p0, titik p1){
     if(p0.x > p1.x && p0.y < p1.y){
         for(i = p1.x; i < p0.x; i++)
             for(j = p0.y; j < p1.y; j++){
-                buffer_r[i][j] = warna_default.r;
-                buffer_g[i][j] = warna_default.g;
-                buffer_b[i][j] = warna_default.b;
-                buffer_a[i][j] = warna_default.a;
+                wbuffer_r[i][j] = warna_default.r;
+                wbuffer_g[i][j] = warna_default.g;
+                wbuffer_b[i][j] = warna_default.b;
+                wbuffer_a[i][j] = warna_default.a;
             }
 
         return;
@@ -108,10 +94,10 @@ void refreshBuffer(titik p0, titik p1){
     if(p0.x > p1.x && p0.y > p1.y){
         for(i = p1.x; i < p0.x; i++)
             for(j = p1.y; j < p0.y; j++){
-                buffer_r[i][j] = warna_default.r;
-                buffer_g[i][j] = warna_default.g;
-                buffer_b[i][j] = warna_default.b;
-                buffer_a[i][j] = warna_default.a;
+                wbuffer_r[i][j] = warna_default.r;
+                wbuffer_g[i][j] = warna_default.g;
+                wbuffer_b[i][j] = warna_default.b;
+                wbuffer_a[i][j] = warna_default.a;
             }
 
         return;
@@ -124,10 +110,10 @@ void refreshBuffer(titik p0, titik p1){
     if(p0.x < p1.x && p0.y > p1.y){
         for(i = p0.x; i < p1.x; i++)
             for(j = p1.y; j < p0.y; j++){
-                buffer_r[i][j] = warna_default.r;
-                buffer_g[i][j] = warna_default.g;
-                buffer_b[i][j] = warna_default.b;
-                buffer_a[i][j] = warna_default.a;
+                wbuffer_r[i][j] = warna_default.r;
+                wbuffer_g[i][j] = warna_default.g;
+                wbuffer_b[i][j] = warna_default.b;
+                wbuffer_a[i][j] = warna_default.a;
             }
 
         return;
@@ -135,19 +121,19 @@ void refreshBuffer(titik p0, titik p1){
 }
 
 //memasukkan nilai buffer ke driver
-void loadBuffer(){
+void loadBuffer_window(){
     int i, j;
 
     titik titik_sementara;
     warna warna_sementara;
     warna warna_kosong = {0, 0, 0, 0};
-    for(i = 0; i < GLOBAL_LAYAR_X; i++)
-        for(j = 0; j < GLOBAL_LAYAR_Y; j++){
+    for(i = 0; i < GLOBAL_WINDOW_X; i++)
+        for(j = 0; j < GLOBAL_WINDOW_Y; j++){
             titik_sementara.x = i;
             titik_sementara.y = j;
 
-            if(buffer_r[i][j] && buffer_g[i][j] &&
-            buffer_b[i][j] && buffer_a[i][j]){
+            if(wbuffer_r[i][j] && wbuffer_g[i][j] &&
+            wbuffer_b[i][j] && wbuffer_a[i][j]){
                 warna_sementara.r = buffer_r[i][j];
                 warna_sementara.g = buffer_g[i][j];
                 warna_sementara.b = buffer_b[i][j];
@@ -156,11 +142,11 @@ void loadBuffer(){
                 warna_sementara = warna_kosong;
             }
 
-            DrawDot(titik_sementara, warna_sementara);
+            DrawDot_window(titik_sementara, warna_sementara);
         }
 }
 
-void bufferDrawPlane(titik* p, warna c, int sisi){
+void bufferDrawPlane_window(titik* p, warna c, int sisi){
 	int i= 0;
 
 	for (i = 0; i < sisi-1; i++) {
@@ -173,13 +159,13 @@ void bufferDrawPlane(titik* p, warna c, int sisi){
 
 
 
-void bufferDrawCircle(titik p, int radius, warna c){
+void bufferDrawCircle_window(titik p, int radius, warna c){
     inline void bufferDrawHorizontalLine(int x1, int x2, int y, warna c)
     {
         int i; titik l;
         for (i = x1; i < x2 ; i++){
             l.x = i; l.y = y;
-            bufferDrawDot(l, c);
+            bufferDrawDot_window(l, c);
         }
     }
     inline void plot4poin(titik p1, int x, int y, warna c)
@@ -232,19 +218,35 @@ void bufferDrawCircle(titik p, int radius, warna c){
     }
 }
 
+int is_color_window(titik p, warna c) {
+  if ((p.x < 1) || (p.x >= GLOBAL_WINDOW_X) || (p.y < 1) || (p.y >= GLOBAL_WINDOW_Y)){
+      return 1;
+  }
+
+    return wbuffer_r[p.x][p.y] == c.r && wbuffer_g[p.x][p.y] == c.g
+    && wbuffer_b[p.x][p.y] == c.b && wbuffer_a[p.x][p.y] == c.a;
+}
+
+void fill_window(titik p, warna c, warna bound_c) {
+    if (!is_color_window(p, c) && !is_color_window(p, bound_c)) {
+        bufferDrawDot_window(p, c);
+        titik new_p = {p.x, p.y+1};
+        fill_window(new_p, c, bound_c);
+        new_p.x = p.x-1; new_p.y = p.y;
+        fill_window(new_p, c, bound_c);
+        new_p.x = p.x+1; new_p.y = p.y;
+        fill_window(new_p, c, bound_c);
+        new_p.x = p.x; new_p.y = p.y-1;
+        fill_window(new_p, c, bound_c);
+    }
+}
+
+
+/*
 int dotDistance(titik p1, titik p2){
     double hasil;
     hasil = sqrt(((p2.x-p1.x)*(p2.x-p1.x))+((p2.y-p1.y)*(p2.y-p1.y)));
     return hasil;
-}
-
-int is_color(titik p, warna c) {
-  if ((p.x < 1) || (p.x >= GLOBAL_LAYAR_X) || (p.y < 1) || (p.y >= GLOBAL_LAYAR_Y)){
-      return 1;
-  }
-
-	return buffer_r[p.x][p.y] == c.r && buffer_g[p.x][p.y] == c.g
-	&& buffer_b[p.x][p.y] == c.b && buffer_a[p.x][p.y] == c.a;
 }
 
 void bufferDrawPlaneSolid(titik* p, warna c, warna bound_c, int sisi) {
@@ -258,20 +260,6 @@ void bufferDrawPlaneSolid(titik* p, warna c, warna bound_c, int sisi) {
 	flare_point.x = x_mid / sisi;
 	flare_point.y = y_mid / sisi;
 	fill(flare_point, c, bound_c);
-}
-
-void fill(titik p, warna c, warna bound_c) {
-	if (!is_color(p, c) && !is_color(p, bound_c)) {
-		bufferDrawDot(p, c);
-		titik new_p = {p.x, p.y+1};
-		fill(new_p, c, bound_c);
-		new_p.x = p.x-1; new_p.y = p.y;
-		fill(new_p, c, bound_c);
-		new_p.x = p.x+1; new_p.y = p.y;
-		fill(new_p, c, bound_c);
-		new_p.x = p.x; new_p.y = p.y-1;
-		fill(new_p, c, bound_c);
-	}
 }
 
 void drawPlane(int xof, int yof) {
@@ -326,16 +314,18 @@ void bufferDrawPlaneSolidCitra(titik *citra, titik pivot, warna c, warna bound_c
   bufferDrawPlaneSolid(posAbs, c, bound_c, sisi);
 }
 
-void drawWindow(titik windowPosition){
-    titik* posWindow = (titik*) malloc(4*sizeof(titik));
-    posWindow[0].x = windowPosition.x;
-    posWindow[0].y = windowPosition.y;
-    posWindow[1].x = windowPosition.x+299;
-    posWindow[1].y = windowPosition.y;
-    posWindow[2].x = windowPosition.x+299;
-    posWindow[2].y = windowPosition.y+199;
-    posWindow[3].x = windowPosition.x;
-    posWindow[3].y = windowPosition.y+199;    
 
-    bufferDrawPlane(posWindow,cWhite,4);
+titik getMidPoint(titik *citra, int sisi) {
+  titik ans;
+  int i = 0, midx = 0, midy = 0;
+  for (i = 0; i < sisi; i++) {
+    midx += citra[i].x;
+    midy += citra[i].y;
+  }
+  midx /= sisi; midy /= sisi;
+  ans.x = midx; ans.y = midy;
+  return ans;
 }
+
+
+*/
