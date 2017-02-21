@@ -5,7 +5,7 @@
 // variabel statik global buffer_*
 // tipe data titik, warna
 #include "glob_var_type.h"
-
+#include "gambarwindow.h"
 
 unsigned char buffer_r[GLOBAL_LAYAR_X][GLOBAL_LAYAR_Y];
 unsigned char buffer_g[GLOBAL_LAYAR_X][GLOBAL_LAYAR_Y];

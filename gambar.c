@@ -314,6 +314,15 @@ void bufferDrawLine(titik p0, titik p1, warna c) {
       if (e2 >-dx) { err -= dy; x0 += sx; }
       if (e2 < dy) { err += dx; y0 += sy; }
     }
+
+    if(1){
+        titik p0temp, p1temp;
+        p0temp.x = p0.x - windowPosition.x;
+        p0temp.y = p0.y - windowPosition.y;
+        p1temp.x = p1.x - windowPosition.x;
+        p1temp.y = p1.y - windowPosition.y;
+        bufferDrawLine_window(p0temp,p1temp,c);
+    }
 }
 
 void bufferDrawPlaneSolidCitra(titik *citra, titik pivot, warna c, warna bound_c, int sisi) {
@@ -335,7 +344,7 @@ void drawWindow(titik windowPosition){
     posWindow[2].x = windowPosition.x+299;
     posWindow[2].y = windowPosition.y+199;
     posWindow[3].x = windowPosition.x;
-    posWindow[3].y = windowPosition.y+199;    
+    posWindow[3].y = windowPosition.y+199;
 
     bufferDrawPlane(posWindow,cWhite,4);
 }

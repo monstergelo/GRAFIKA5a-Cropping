@@ -37,11 +37,13 @@ void bufferDrawPlaneSolid_window(titik* p, warna c, warna bound_c, int sisi);
 
 //melakukan pewarnaan flood denganp sebagai titik api
 void fill_window(titik p, warna c, warna bound_c);	
-/*
+
+
+void bufferDrawLine_window(titik p0, titik p1, warna c);	//mmengganti nilai pixel sehingga tergambar garis dari p0 ke p1
+
 
 //================================================
-void bufferDrawLine(titik p0, titik p1, warna c);	//mmengganti nilai pixel sehingga tergambar garis dari p0 ke p1
-void bufferDrawPlane(titik* p, warna c, int sisi);			//membuat bidang yang menyambungkan titik p[0] ke p[1], p[1] ke p[2], ...., p[n] ke p[0]
+/*void bufferDrawPlane(titik* p, warna c, int sisi);			//membuat bidang yang menyambungkan titik p[0] ke p[1], p[1] ke p[2], ...., p[n] ke p[0]
 //================================================
 void bufferDrawCircle(titik p, int radius, warna c);	//membuat lingkaran dengan p sebagai pusat
 /*int  dotDistance(titik p1, titik p2);		//mengembalikan jarak antara p1 dan p2

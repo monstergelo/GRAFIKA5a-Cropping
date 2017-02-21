@@ -37,7 +37,7 @@ void DrawDot_window(titik p, warna c){
 }
 
 void bufferDrawDot_window(titik p, warna c){
-    if((p.x < 1) || (p.x >= GLOBAL_LAYAR_X) || (p.y < 1) || (p.y >= GLOBAL_LAYAR_Y)){
+    if((p.x < 0) || (p.x > GLOBAL_WINDOW_X-1) || (p.y < 0) || (p.y > GLOBAL_WINDOW_Y-1)){
 		return ;
 	}
 
@@ -49,7 +49,7 @@ void bufferDrawDot_window(titik p, warna c){
 
 
 
-//mengganti nilai seluruh pixel buffer menjadi background color untuk
+//mengganti nilai seluruh pixel buffer menjadi background color untuk window
 void refreshBuffer_window(titik p0, titik p1){
     warna warna_default = {25, 25, 255, 255};
 
@@ -134,10 +134,10 @@ void loadBuffer_window(){
 
             if(wbuffer_r[i][j] && wbuffer_g[i][j] &&
             wbuffer_b[i][j] && wbuffer_a[i][j]){
-                warna_sementara.r = buffer_r[i][j];
-                warna_sementara.g = buffer_g[i][j];
-                warna_sementara.b = buffer_b[i][j];
-                warna_sementara.a = buffer_a[i][j];
+                warna_sementara.r = wbuffer_r[i][j];
+                warna_sementara.g = wbuffer_g[i][j];
+                warna_sementara.b = wbuffer_b[i][j];
+                warna_sementara.a = wbuffer_a[i][j];
             }else{
                 warna_sementara = warna_kosong;
             }
@@ -150,15 +150,15 @@ void bufferDrawPlane_window(titik* p, warna c, int sisi){
 	int i= 0;
 
 	for (i = 0; i < sisi-1; i++) {
-		bufferDrawLine(p[i], p[i+1], c);
+		bufferDrawLine_window(p[i], p[i+1], c);
 	}
 
 
-	bufferDrawLine(p[i], p[0], c);
+	bufferDrawLine_window(p[i], p[0], c);
 }
 
 
-
+/*
 void bufferDrawCircle_window(titik p, int radius, warna c){
     inline void bufferDrawHorizontalLine(int x1, int x2, int y, warna c)
     {
@@ -186,7 +186,7 @@ void bufferDrawCircle_window(titik p, int radius, warna c){
         bufferDrawDot(pd,c); */
 
        // Lingkaran berisi
-        bufferDrawHorizontalLine(p1.x - x, p1.x + x, p1.y + y,c);
+  /*      bufferDrawHorizontalLine(p1.x - x, p1.x + x, p1.y + y,c);
         bufferDrawHorizontalLine(p1.x - x, p1.x + x, p1.y - y,c);
     }
 
@@ -216,7 +216,7 @@ void bufferDrawCircle_window(titik p, int radius, warna c){
             error += -x;
         }
     }
-}
+}*/
 
 int is_color_window(titik p, warna c) {
   if ((p.x < 1) || (p.x >= GLOBAL_WINDOW_X) || (p.y < 1) || (p.y >= GLOBAL_WINDOW_Y)){
@@ -241,6 +241,21 @@ void fill_window(titik p, warna c, warna bound_c) {
     }
 }
 
+void bufferDrawLine_window(titik p0, titik p1, warna c) {
+    int x0 = p0.x; int x1 = p1.x; int y0 = p0.y; int y1 = p1.y;
+    int dx = abs(x1-x0), sx = x0<x1 ? 1 : -1;
+    int dy = abs(y1-y0), sy = y0<y1 ? 1 : -1;
+    int err = (dx>dy ? dx : -dy)/2, e2;
+
+    for(;;){
+      titik temp = {x0, y0};
+      bufferDrawDot_window(temp, c);
+      if (x0==x1 && y0==y1) break;
+      e2 = err;
+      if (e2 >-dx) { err -= dy; x0 += sx; }
+      if (e2 < dy) { err += dx; y0 += sy; }
+    }
+}
 
 /*
 int dotDistance(titik p1, titik p2){
@@ -285,23 +300,6 @@ void drawTank(int xof, int yof) {
     bufferDrawPlaneSolid(badanTank, cRed, cRed, 4);
     bufferDrawCircle(pShutterCircle, 20, cRed);
     bufferDrawPlaneSolid(tankGun, cRed, cRed, 4);
-}
-
-
-void bufferDrawLine(titik p0, titik p1, warna c) {
-    int x0 = p0.x; int x1 = p1.x; int y0 = p0.y; int y1 = p1.y;
-    int dx = abs(x1-x0), sx = x0<x1 ? 1 : -1;
-    int dy = abs(y1-y0), sy = y0<y1 ? 1 : -1;
-    int err = (dx>dy ? dx : -dy)/2, e2;
-
-    for(;;){
-      titik temp = {x0, y0};
-      bufferDrawDot(temp, c);
-      if (x0==x1 && y0==y1) break;
-      e2 = err;
-      if (e2 >-dx) { err -= dy; x0 += sx; }
-      if (e2 < dy) { err += dx; y0 += sy; }
-    }
 }
 
 void bufferDrawPlaneSolidCitra(titik *citra, titik pivot, warna c, warna bound_c, int sisi) {
