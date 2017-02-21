@@ -48,7 +48,7 @@ int main(){
 //**setup-pendengar-keyboard********************************************************************
 	// Input keyboard device file
     //const char *dev = "/dev/input/by-id/usb-_USB_Keyboard-event-kbd";
-    const char *dev = "/dev/input/event4";
+    const char *dev = "/dev/input/event3";
     //const char *dev = "/dev/input/by-id/usb-_USB_Keyboard-event-kbd";
     // Open device for reference
     fd = open(dev, O_RDONLY);
@@ -118,7 +118,7 @@ void *preUpdate(){
 	    if (n == (ssize_t)-1) {
 
 	    }
-	    int wt = 50; //window transition 
+	    int wt = 50; //window transition
 	    // if keystroke is stored on keyboard device reference file
 	    if (ev.type == EV_KEY && ev.value >= 0 && ev.value <= 2){
 	        if(ev.value == 1){ // when it pressed, 0 is released
@@ -177,7 +177,7 @@ void *preUpdate(){
 	                	else {
 	                		windowPosition.y = 0;
 	                	}
-	                	break;	               
+	                	break;
 
 	                default:
 	                    break;

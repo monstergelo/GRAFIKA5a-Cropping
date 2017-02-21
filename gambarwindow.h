@@ -32,14 +32,17 @@ void loadBuffer_window();
 
 //membuat bidang yang menyambungkan titik p[0] ke p[1], p[1] ke p[2], ...., p[n] ke p[0]
 //dengan warna solid
-void bufferDrawPlaneSolid_window(titik* p, warna c, warna bound_c, int sisi);	
-	                                                					
+void bufferDrawPlaneSolid_window(titik* p, warna c, warna bound_c, int sisi);
+
 //membuat gambar dengan origin sebagai posisi
-//void bufferDrawPlaneSolidCitra(titik* citra, titik origin, warna fill, warna bound, int sisi); 
+//void bufferDrawPlaneSolidCitra(titik* citra, titik origin, warna fill, warna bound, int sisi);
 
 //melakukan pewarnaan flood denganp sebagai titik api
-void fill_window(titik p, warna c, warna bound_c);	
+void fill_window(titik p, warna c, warna bound_c);
 
+titik get_intersection(titik p0, titik p1);
+
+titik move_to_window(titik p);
 
 void bufferDrawLine_window(titik p0, titik p1, warna c);	//mmengganti nilai pixel sehingga tergambar garis dari p0 ke p1
 
