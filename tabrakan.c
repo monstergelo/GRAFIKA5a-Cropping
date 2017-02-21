@@ -64,8 +64,8 @@ void jalanObjek(){
 			pesawat[i].posisi = rotasi(putar, temp, 1);
 
 			//Spawn propeller if plane still exists
-			propeller[i].posisi.x = pesawat[i].posisi.x + pesawat[i].citra[4].x;
-			propeller[i].posisi.y = pesawat[i].posisi.y + pesawat[i].citra[4].y;
+			propeller[i].posisi.x = pesawat[i].posisi.x + pesawat[i].citra[14].x;
+			propeller[i].posisi.y = pesawat[i].posisi.y + pesawat[i].citra[14].y;
 		}
 
 		//Move propeller if plane is destroyed
@@ -114,42 +114,42 @@ void jalanObjek(){
 void setupCitraPesawat(objekTabrak *pesawat) {
 	pesawat->citra = (titik*) malloc(36 * sizeof(titik));
 	titik* citra = pesawat->citra;
-	citra[0].x = 20; citra[0].y = 20;
-	citra[1].x = 90; citra[1].y = 20;
-	citra[2].x = 130; citra[2].y = 80;
-	citra[3].x = 180; citra[3].y = 90;
-	citra[4].x = 190; citra[4].y = 20;
-	citra[5].x = 180; citra[5].y = 20;
-	citra[6].x = 180; citra[6].y = 10;
-	citra[7].x = 240; citra[7].y = 10;
-	citra[8].x = 260; citra[8].y = 20;
-	citra[9].x = 240; citra[9].y = 20;
-	citra[10].x = 280; citra[10].y = 80;
-	citra[11].x = 300; citra[11].y = 70;
-	citra[12].x = 350; citra[12].y = 70;
-	citra[13].x = 390; citra[13].y = 90;
-	citra[14].x = 450; citra[14].y = 110;
-	citra[15].x = 390; citra[15].y = 130;
-	citra[16].x = 260; citra[16].y = 130;
-	citra[17].x = 230; citra[17].y = 190;
-	citra[18].x = 240; citra[18].y = 200;
-	citra[19].x = 150; citra[19].y = 200;
-	citra[20].x = 150; citra[20].y = 190;
-	citra[21].x = 160; citra[21].y = 190;
-	citra[22].x = 180; citra[22].y = 130;
-	citra[23].x = 130; citra[23].y = 140;
-	citra[24].x = 80; citra[24].y = 180;
-	citra[25].x = 40; citra[25].y = 180;
-	citra[26].x = 30; citra[26].y = 150;
-	citra[27].x = 40; citra[27].y = 140;
-	citra[28].x = 40; citra[28].y = 130;
-	citra[29].x = 30; citra[29].y = 120;
-	citra[30].x = 30; citra[30].y = 110;
-	citra[31].x = 40; citra[31].y = 100;
-	citra[32].x = 60; citra[32].y = 90;
-	citra[33].x = 60; citra[33].y = 80;
-	citra[34].x = 30; citra[34].y = 30;
-	citra[35].x = 20; citra[35].y = 30;
+	citra[0].x = -195; citra[0].y = -25;
+	citra[1].x = -125; citra[1].y = -25;
+	citra[2].x = -85; citra[2].y = 35;
+	citra[3].x = -35; citra[3].y = 45;
+	citra[4].x = -25; citra[4].y = -25;
+	citra[5].x = -35; citra[5].y = -25;
+	citra[6].x = -35; citra[6].y = -35;
+	citra[7].x = 25; citra[7].y = -35;
+	citra[8].x = 45; citra[8].y = -25;
+	citra[9].x = 25; citra[9].y = -25;
+	citra[10].x = 65; citra[10].y = 35;
+	citra[11].x = 85; citra[11].y = 25;
+	citra[12].x = 135; citra[12].y = 25;
+	citra[13].x = 175; citra[13].y = 45;
+	citra[14].x = 235; citra[14].y = 65;
+	citra[15].x = 175; citra[15].y = 85;
+	citra[16].x = 45; citra[16].y = 85;
+	citra[17].x = 15; citra[17].y = 145;
+	citra[18].x = 25; citra[18].y = 155;
+	citra[19].x = -65; citra[19].y = 155;
+	citra[20].x = -65; citra[20].y = 145;
+	citra[21].x = -55; citra[21].y = 145;
+	citra[22].x = -35; citra[22].y = 85;
+	citra[23].x = -85; citra[23].y = 95;
+	citra[24].x = -135; citra[24].y = 135;
+	citra[25].x = -175; citra[25].y = 135;
+	citra[26].x = -185; citra[26].y = 105;
+	citra[27].x = -175; citra[27].y = 105;
+	citra[28].x = -175; citra[28].y = 85;
+	citra[29].x = -185; citra[29].y = 75;
+	citra[30].x = -185; citra[30].y = 65;
+	citra[31].x = -175; citra[31].y = 55;
+	citra[32].x = -155; citra[32].y = 45;
+	citra[33].x = -155; citra[33].y = 35;
+	citra[34].x = -185; citra[34].y = -15;
+	citra[35].x = -195; citra[35].y = -15;
 }
 
 void setupCitraPeluru(objekTabrak *peluru) {
@@ -214,18 +214,18 @@ void setupCitraPecah(objekTabrak *pecah, int type) {
 void setupCitraPropeller(objekTabrak *propeller) {
 	propeller->citra = (titik*) malloc(12 * sizeof(titik));
 	titik* citra = propeller->citra;
-	citra[0].x = 260; citra[0].y = 90;
-	citra[1].x = 245; citra[1].y = 100;
-	citra[2].x = 245; citra[2].y = 100;
-	citra[3].x = 260; citra[3].y = 100;
-	citra[4].x = 260; citra[4].y = 115;
-	citra[5].x = 270; citra[5].y = 115;
-	citra[6].x = 270; citra[6].y = 100;
-	citra[7].x = 285; citra[7].y = 100;
-	citra[8].x = 285; citra[8].y = 90;
-	citra[9].x = 270; citra[9].y = 90;
-	citra[10].x = 270; citra[10].y = 75;
-	citra[11].x = 260; citra[11].y = 75;
+	citra[0].x = -5; citra[0].y = 5;
+	citra[1].x = -20; citra[1].y = 5;
+	citra[2].x = -20; citra[2].y = -5;
+	citra[3].x = -5; citra[3].y = -5;
+	citra[4].x = -5; citra[4].y = -20;
+	citra[5].x = 5; citra[5].y = -20;
+	citra[6].x = 5; citra[6].y = -5;
+	citra[7].x = 20; citra[7].y = -5;
+	citra[8].x = 20; citra[8].y = 5;
+	citra[9].x = 5; citra[9].y = 5;
+	citra[10].x = 5; citra[10].y = 20;
+	citra[11].x = -5; citra[11].y = 20;
 }
 
 //membuat objek baru(a=pesawat; b=peluru) pada posisi p
