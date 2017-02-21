@@ -391,7 +391,7 @@ int isOnWindow(titik p0, titik p1)
 			x = x0 + (x1 - x0) * (ybottom - y0) / (y1 - y0);
 			y = ybottom;
 		}
-		else if((zoneout == 4)) // titik di kiri
+		else if((zoneout == 1)) // titik di kiri
 		{
             if((x1-x0) == 0) // mengindari division by 0
             {
@@ -415,7 +415,6 @@ int isOnWindow(titik p0, titik p1)
 		titik baru = {x,y};
 		if(zone0 != 0)
 		{
-			
 			return isOnWindow(baru, p1);
 		}
 		else
@@ -471,7 +470,7 @@ int DotZone(titik p)
 	}
 	else if(xp < xleft)
 	{
-		return 4; //tengah-kiri
+		return 1; //tengah-kiri
 	}
 	else if(xp > xright)
 	{
