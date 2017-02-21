@@ -329,3 +329,138 @@ titik getMidPoint(titik *citra, int sisi) {
 
 
 */
+
+int isOnWindow(titik p0, titik p1)
+{
+	int zone0 = DotZone(p0);
+	int zone1 = DotZone(p1);
+
+	if(zone0 == 0 && zone1 == 0)
+	{
+		return 1; //semua di dalam window
+	}
+
+	int crossResult = zone0 & zone1;
+
+	if(crossResult == 0)
+	{
+		printf("crox\n");
+		//cek mana yang keluar window
+		int zoneout;
+		if(zone0 != 0)
+		{
+			zoneout = zone0;
+		}
+		else
+		{
+			zoneout = zone1;
+		}
+
+		//itung-itung
+		int x0 = p0.x;
+		int x1 = p1.x;
+		int y0 = p0.y;
+		int y1 = p1.y;
+
+		int x, y;
+		int xleft = windowPosition.x;
+		int ytop  = windowPosition.y;
+
+
+		int length_x = GLOBAL_WINDOW_X;
+		int length_y = GLOBAL_WINDOW_Y;
+
+		int xright  = windowPosition.x + length_x;
+		int ybottom = windowPosition.y + length_y;
+
+		if((zoneout == 8) || (zoneout == 9) || (zoneout == 10)) //titik di atas
+		{
+			x = x0 + (x1 - x0) * (ytop - y0) / (y1 - y0);
+			y = ytop;
+		}
+		else if((zoneout == 4) || (zoneout == 5) || (zoneout == 6)) //titik di bawah
+		{
+			x = x0 + (x1 - x0) * (ybottom - y0) / (y1 - y0);
+			y = ybottom;
+		}
+		else if((zoneout == 4)) // titik di kiri
+		{
+			y = y0 + (y1 - y0) * (xleft - x0) / (x1 - x0);
+			x = xleft;
+		}
+		else //titik di kanan
+		{
+			y = y0 + (y1 - y0) * (xright - x0) / (x1 - x0);
+			x = xright;
+		}
+
+		titik baru = {x,y};
+		if(zone0 != 0)
+		{
+			
+			return isOnWindow(baru, p1);
+		}
+		else
+		{
+			return isOnWindow(p0, baru);
+		}
+	}
+	else
+	{
+		printf("fail\n");
+		return 0; //ngga terpotong
+	}
+}
+
+int DotZone(titik p)
+{
+	int xleft = windowPosition.x;
+	int ytop  = windowPosition.y;
+
+
+	int length_x = GLOBAL_WINDOW_X;
+	int length_y = GLOBAL_WINDOW_Y;
+
+	int xright  = windowPosition.x + length_x;
+	int ybottom = windowPosition.y + length_y;
+
+	int xp = p.x;
+	int yp = p.y;
+
+	if((xp < xleft) && (yp < ytop))
+	{
+		return 9; //kiri-atas
+	}
+	else if((xp > xright) && (yp < ytop))
+	{
+		return 10; //kanan-atas
+	}
+	else if((xp < xleft) && (yp > ybottom))
+	{
+		return 5; //kiri-bawah
+	}
+	else if((xp > xright) && (yp > ybottom))
+	{
+		return 6; //kanan-bawah
+	}
+	else if(yp > ybottom)
+	{
+		return 4; //tengah-bawah
+	}
+	else if(yp < ytop)
+	{
+		return 8; //tengah-atas
+	}
+	else if(xp < xleft)
+	{
+		return 4; //tengah-kiri
+	}
+	else if(xp > xright)
+	{
+		return 2; //tengah-kanan
+	}
+	else
+	{
+		return 0;
+	}
+}

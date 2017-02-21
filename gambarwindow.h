@@ -9,6 +9,8 @@ unsigned char wbuffer_g[GLOBAL_WINDOW_X][GLOBAL_WINDOW_Y];
 unsigned char wbuffer_b[GLOBAL_WINDOW_X][GLOBAL_WINDOW_Y];
 unsigned char wbuffer_a[GLOBAL_WINDOW_X][GLOBAL_WINDOW_Y];
 
+titik windowPosition;
+
 //mengembalikan titik dengan nilai x dan y sesuai argumen
 titik setTitik_window(int x, int y);
 
@@ -55,4 +57,8 @@ void drawTank(int xof, int yof);
 
 titik getMidPoint(titik *citra, int sisi);
 */
+
+int isOnWindow(titik p0, titik p1);
+
+int DotZone(titik p);
 #endif //GAMBARWINDOW_H
