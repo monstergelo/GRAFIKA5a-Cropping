@@ -315,7 +315,7 @@ void bufferDrawLine(titik p0, titik p1, warna c) {
       if (e2 < dy) { err += dx; y0 += sy; }
     }
 
-    if(1){
+    if(isOnWindow(p0,p1)){
         titik p0temp, p1temp;
         p0temp.x = p0.x - windowPosition.x;
         p0temp.y = p0.y - windowPosition.y;

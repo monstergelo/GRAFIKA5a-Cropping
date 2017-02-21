@@ -342,7 +342,7 @@ int isOnWindow(titik p0, titik p1)
 
 	if(crossResult == 0)
 	{
-		printf("crox\n");
+//		printf("crox\n");
 		//cek mana yang keluar window
 		int zoneout;
 		if(zone0 != 0)
@@ -373,21 +373,41 @@ int isOnWindow(titik p0, titik p1)
 
 		if((zoneout == 8) || (zoneout == 9) || (zoneout == 10)) //titik di atas
 		{
+            if((y1-y0) == 0) // mengindari division by 0
+            {
+                return 1;
+            }
+
 			x = x0 + (x1 - x0) * (ytop - y0) / (y1 - y0);
 			y = ytop;
 		}
 		else if((zoneout == 4) || (zoneout == 5) || (zoneout == 6)) //titik di bawah
 		{
+            if((y1-y0) == 0) // mengindari division by 0
+            {
+                return 1;
+            }
+
 			x = x0 + (x1 - x0) * (ybottom - y0) / (y1 - y0);
 			y = ybottom;
 		}
 		else if((zoneout == 4)) // titik di kiri
 		{
+            if((x1-x0) == 0) // mengindari division by 0
+            {
+                return 1;
+            }
+
 			y = y0 + (y1 - y0) * (xleft - x0) / (x1 - x0);
 			x = xleft;
 		}
 		else //titik di kanan
 		{
+            if((x1-x0) == 0) // mengindari division by 0
+            {
+                return 1;
+            }
+
 			y = y0 + (y1 - y0) * (xright - x0) / (x1 - x0);
 			x = xright;
 		}
@@ -405,7 +425,7 @@ int isOnWindow(titik p0, titik p1)
 	}
 	else
 	{
-		printf("fail\n");
+//		printf("fail\n");
 		return 0; //ngga terpotong
 	}
 }
