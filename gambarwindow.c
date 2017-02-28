@@ -17,7 +17,7 @@ void DrawDot_window(titik p, warna c){
 		return ;
 	}
 
-    long int position = (p.x + 1000 + global_vinfo.xoffset) * (global_vinfo.bits_per_pixel / 8) +
+    long int position = (p.x + 1010 + global_vinfo.xoffset) * (global_vinfo.bits_per_pixel / 8) +
        (p.y + global_vinfo.yoffset) * global_finfo.line_length;
 
     if(global_vinfo.bits_per_pixel == 32){
@@ -207,17 +207,17 @@ int is_color_window(titik p, warna c) {
 }
 
 void fill_window(titik p, warna c, warna bound_c) {
-    if (!is_color_window(p, c) && !is_color_window(p, bound_c)) {
-        bufferDrawDot_window(p, c);
-        titik new_p = {p.x, p.y+1};
-        fill_window(new_p, c, bound_c);
-        new_p.x = p.x-1; new_p.y = p.y;
-        fill_window(new_p, c, bound_c);
-        new_p.x = p.x+1; new_p.y = p.y;
-        fill_window(new_p, c, bound_c);
-        new_p.x = p.x; new_p.y = p.y-1;
-        fill_window(new_p, c, bound_c);
-    }
+    // if (!is_color_window(p, c) && !is_color_window(p, bound_c)) {
+    //     bufferDrawDot_window(p, c);
+    //     titik new_p = {p.x, p.y+1};
+    //     fill_window(new_p, c, bound_c);
+    //     new_p.x = p.x-1; new_p.y = p.y;
+    //     fill_window(new_p, c, bound_c);
+    //     new_p.x = p.x+1; new_p.y = p.y;
+    //     fill_window(new_p, c, bound_c);
+    //     new_p.x = p.x; new_p.y = p.y-1;
+    //     fill_window(new_p, c, bound_c);
+    // }
 }
 
 void bufferDrawLine_window(titik p0, titik p1, warna c) {

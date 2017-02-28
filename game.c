@@ -32,7 +32,7 @@ struct input_event ev;	//something-something keylogger
 ssize_t n;
 int user_input = -99;
 int keypress = 0;
-titik p0 = {0,150};
+titik p0 = {0,250};
 titik p1 = {520,650};
 titik p2 = {300,650};
 titik p3 = {500,650};
@@ -41,6 +41,7 @@ titik p9 = {0,0};
 titik p10 = {760,2};
 titik p11 = {0,600};
 titik p12 = {900,600};
+double scale;
 
 titik windowPosition = {350,50};
 
@@ -49,10 +50,10 @@ int main(){
 	// Input keyboard device file
     //const char *dev = "/dev/input/by-id/usb-_USB_Keyboard-event-kbd";
     const char *dev = "/dev/input/event3";
-    //const char *dev = "/dev/input/by-id/usb-_USB_Keyboard-event-kbd";
     // Open device for reference
     fd = open(dev, O_RDONLY);
 
+    scale = 1.0;
     // Check if device is opened
     if (fd == -1) {
         fprintf(stderr, "Cannot open %s: %s.\n", dev, strerror(errno));
@@ -223,11 +224,13 @@ void updatePosisi(){
 }
 
 void postUpdate(){
-	cekTabrakanObjek(100);
+	cekTabrakanObjek(200);
 
 	for(int i=0; i<1; i++){
 		if(pesawat[i].status == 1){
-			gambarHancur(pesawat[i].posisi);
+			titik tHancur = pesawat[i].posisi;
+			tHancur.y += 100;
+			gambarHancur(tHancur);
 			pesawat[i].status = -1;
 		}
 	}

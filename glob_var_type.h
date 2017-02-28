@@ -28,4 +28,6 @@ extern unsigned char wbuffer_g[GLOBAL_WINDOW_X][GLOBAL_WINDOW_Y];
 extern unsigned char wbuffer_b[GLOBAL_WINDOW_X][GLOBAL_WINDOW_Y];
 extern unsigned char wbuffer_a[GLOBAL_WINDOW_X][GLOBAL_WINDOW_Y];
 
+extern double scale;
+
 #endif //GLOB_VAR_TYPE_H

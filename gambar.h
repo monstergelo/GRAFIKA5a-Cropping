@@ -6,11 +6,14 @@
 // tipe data titik, warna
 #include "glob_var_type.h"
 #include "gambarwindow.h"
+#include "skala.h"
 
 unsigned char buffer_r[GLOBAL_LAYAR_X][GLOBAL_LAYAR_Y];
 unsigned char buffer_g[GLOBAL_LAYAR_X][GLOBAL_LAYAR_Y];
 unsigned char buffer_b[GLOBAL_LAYAR_X][GLOBAL_LAYAR_Y];
 unsigned char buffer_a[GLOBAL_LAYAR_X][GLOBAL_LAYAR_Y];
+
+double scale;
 
 //mengembalikan titik dengan nilai x dan y sesuai argumen
 titik setTitik(int x, int y);

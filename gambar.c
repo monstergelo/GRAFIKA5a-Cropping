@@ -260,6 +260,8 @@ void bufferDrawPlaneSolid(titik* p, warna c, warna bound_c, int sisi) {
 	}
 	flare_point.x = x_mid / sisi;
 	flare_point.y = y_mid / sisi;
+
+
 	fill(flare_point, c, bound_c);
 
   if (titikObjekWindow > 0) {
@@ -270,22 +272,24 @@ void bufferDrawPlaneSolid(titik* p, warna c, warna bound_c, int sisi) {
     }
     window_point.x = x_mid / titikObjekWindow;
   	window_point.y = y_mid / titikObjekWindow;
+
+    //printf("windowfill: %d,%d \n", window_point.x, window_point.y);
     fill_window(window_point, c, bound_c);
   }
 }
 
 void fill(titik p, warna c, warna bound_c) {
-	if (!is_color(p, c) && !is_color(p, bound_c)) {
-		bufferDrawDot(p, c);
-		titik new_p = {p.x, p.y+1};
-		fill(new_p, c, bound_c);
-		new_p.x = p.x-1; new_p.y = p.y;
-		fill(new_p, c, bound_c);
-		new_p.x = p.x+1; new_p.y = p.y;
-		fill(new_p, c, bound_c);
-		new_p.x = p.x; new_p.y = p.y-1;
-		fill(new_p, c, bound_c);
-	}
+	// if (!is_color(p, c) && !is_color(p, bound_c)) {
+	// 	bufferDrawDot(p, c);
+	// 	titik new_p = {p.x, p.y+1};
+	// 	fill(new_p, c, bound_c);
+	// 	new_p.x = p.x-1; new_p.y = p.y;
+	// 	fill(new_p, c, bound_c);
+	// 	new_p.x = p.x+1; new_p.y = p.y;
+	// 	fill(new_p, c, bound_c);
+	// 	new_p.x = p.x; new_p.y = p.y-1;
+	// 	fill(new_p, c, bound_c);
+	// }
 }
 
 void drawPlane(int xof, int yof) {
@@ -329,22 +333,26 @@ void bufferDrawLine(titik p0, titik p1, warna c) {
     }
 
     if (isOnWindow(p0,p1)) {
+        titik mid_point = {150, 100};
         if (DotZone(p0) && DotZone(p1)) { // Dua-duanya di luar
-          objekWindow[titikObjekWindow++] = move_to_window(get_intersection(p0, p1));
-          objekWindow[titikObjekWindow++] = move_to_window(get_intersection(p1, p0));
+          objekWindow[titikObjekWindow++] = scaleDot(mid_point, move_to_window(get_intersection(p0, p1)), scale);
+          objekWindow[titikObjekWindow++] = scaleDot(mid_point, move_to_window(get_intersection(p1, p0)), scale);
         } else if (DotZone(p0)) {
-          objekWindow[titikObjekWindow++] = move_to_window(get_intersection(p0, p1));
+          objekWindow[titikObjekWindow++] = scaleDot(mid_point, move_to_window(get_intersection(p0, p1)), scale);
         } else if (DotZone(p1)) {
-          objekWindow[titikObjekWindow++] = move_to_window(p0);
-          objekWindow[titikObjekWindow++] = move_to_window(get_intersection(p0, p1));
+          objekWindow[titikObjekWindow++] = scaleDot(mid_point, move_to_window(p0), scale);
+          objekWindow[titikObjekWindow++] = scaleDot(mid_point, move_to_window(get_intersection(p0, p1)), scale);
         } else {
-          objekWindow[titikObjekWindow++] = move_to_window(p0);
+          objekWindow[titikObjekWindow++] = scaleDot(mid_point, move_to_window(p0), scale);
         }
         titik p0temp, p1temp;
         p0temp.x = p0.x - windowPosition.x;
         p0temp.y = p0.y - windowPosition.y;
         p1temp.x = p1.x - windowPosition.x;
         p1temp.y = p1.y - windowPosition.y;
+
+        p0temp = scaleDot(mid_point, p0, scale);
+        p1temp = scaleDot(mid_point, p1, scale);
         bufferDrawLine_window(p0temp,p1temp,c);
     }
 }
